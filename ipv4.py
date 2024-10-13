@@ -24,15 +24,7 @@ def test_speed(ip, port=80, packet_size=1024, packet_count=10):
     speed_MB = speed / 10**6
     return speed_MB
 
-ipv4_networks = [
-    ipaddress.IPv4Network("162.158.150.0/24", strict=False),
-    ipaddress.IPv4Network("108.162.249.0/24", strict=False)
-]
-
-for network in ipv4_networks:
-    for ipv4_address in network.hosts():
-        ipv4_address_str = str(ipv4_address)
-        # 进行您的网络测试和日志记录操作
+ipv4_network = ipaddress.IPv4Network("162.158.150.0/24", strict=False)
 response_data = {}
 for ipv4_address in ipv4_network.hosts():
     ipv4_address_str = str(ipv4_address)
@@ -63,7 +55,7 @@ for ipv4_address in ipv4_network.hosts():
             f"Node: {ipv4_address_str}, Ping: {ping_values} ms, Download Speed: {download_speed:.2f} MB/s,")
         with open('iplist.txt', 'a') as f:
             f.write(f"Node: {ipv4_address_str}, Ping: {ping_values} ms, Download Speed: {download_speed:.2f} MB/s\n")
-            f.flush()  # 强制刷新文件缓冲，确保数据实时写入磁盘
+
     except Exception as e:
         print(f"Error processing node {ipv4_address_str}: {e}")
 
