@@ -21,7 +21,9 @@ def test_speed(ip, port=80, packet_size=1024, packet_count=10):
     end_time = time.time()
     total_time = end_time - start_time
     speed = total_sent / total_time  # 计算网速（字节/秒）
-    return speed
+    speed_MB = speed / 10**6
+    return speed_MB
+
 ipv4_network = ipaddress.IPv4Network("104.23.112.0/20", strict=False)
 response_data = {}
 for ipv4_address in ipv4_network.hosts():
@@ -50,9 +52,9 @@ for ipv4_address in ipv4_network.hosts():
         download_speed=test_speed(ipv4_address_str, port=80, packet_size=1024, packet_count=10)
         response_data[ipv4_address_str] = (ping_values, download_speed, )
         print(
-            f"Node: {ipv4_address_str}, Ping: {ping_values} ms, Download Speed: {download_speed:.2f} Mbps,")
+            f"Node: {ipv4_address_str}, Ping: {ping_values} ms, Download Speed: {download_speed:.2f} MB/s,")
         with open('iplist.txt', 'a') as f:
-            f.write(f"Node: {ipv4_address_str}, Ping: {ping_values} ms, Download Speed: {download_speed:.2f} Mbps\n")
+            f.write(f"Node: {ipv4_address_str}, Ping: {ping_values} ms, Download Speed: {download_speed:.2f} MB/s\n")
     except Exception as e:
         print(f"Error processing node {ipv4_address_str}: {e}")
 
