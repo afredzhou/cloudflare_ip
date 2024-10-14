@@ -21,16 +21,23 @@ def test_speed(ip, port=80, packet_size=1024, packet_count=10):
     end_time = time.time()
     total_time = end_time - start_time
     speed = total_sent / total_time  # 计算网速（字节/秒）
-    speed_MB = speed / 10**6
+    speed_MB = speed / 10 ** 6
     return speed_MB
 
-ipv4_network = ipaddress.IPv4Network("162.158.150.0/24", strict=False)
+
+# ipv4_network = ipaddress.IPv4Network("108.162.210.0/24", strict=False)
+networks = [
+    ipaddress.IPv4Network("108.162.210.0/24", strict=False),
+    ipaddress.IPv4Network("188.114.96.0/20", strict=False)
+]
 response_data = {}
+for ipv4_network in networks:
+    print(f"Scanning network: {ipv4_network}")
 for ipv4_address in ipv4_network.hosts():
     ipv4_address_str = str(ipv4_address)
     try:
         result = subprocess.run(['ping', '-W', '1', '-c', '1', ipv4_address_str], capture_output=True, text=True)
-        print(ipv4_address_str,result)
+        print(ipv4_address_str, result)
 
         if result.returncode == 0:
             # 打印 stdout 字段
@@ -49,8 +56,8 @@ for ipv4_address in ipv4_network.hosts():
                 f.write(str(ipv4_address) + '\n')
             print(f"{ipv4_address_str} is unreachable.")
             continue
-        download_speed=test_speed(ipv4_address_str, port=80, packet_size=1024, packet_count=10)
-        response_data[ipv4_address_str] = (ping_values, download_speed, )
+        download_speed = test_speed(ipv4_address_str, port=80, packet_size=1024, packet_count=10)
+        response_data[ipv4_address_str] = (ping_values, download_speed,)
         print(
             f"Node: {ipv4_address_str}, Ping: {ping_values} ms, Download Speed: {download_speed:.2f} MB/s,")
         with open('iplist.txt', 'a') as f:
