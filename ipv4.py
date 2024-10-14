@@ -27,8 +27,25 @@ def test_speed(ip, port=80, packet_size=1024, packet_count=10):
 
 # ipv4_network = ipaddress.IPv4Network("108.162.210.0/24", strict=False)
 networks = [
-    ipaddress.IPv4Network("108.162.210.0/24", strict=False),
-    ipaddress.IPv4Network("188.114.96.0/20", strict=False)
+    # ipaddress.IPv4Network("8.10.148.0/24", strict=False),
+    # ipaddress.IPv4Network("173.245.48.0/20", strict=False),
+    # ipaddress.IPv4Network("103.21.244.0/22", strict=False),
+    # ipaddress.IPv4Network("103.22.200.0/22", strict=False),
+    # ipaddress.IPv4Network("103.31.4.0/22", strict=False),
+    # ipaddress.IPv4Network("141.101.64.0/18", strict=False),
+    ipaddress.IPv4Network("108.162.192.0/18", strict=False),
+    # ipaddress.IPv4Network("190.93.240.0/20", strict=False),
+    # ipaddress.IPv4Network("188.114.96.0/20", strict=False),
+    # ipaddress.IPv4Network("197.234.240.0/22", strict=False),
+    # ipaddress.IPv4Network("198.41.128.0/17", strict=False),
+    # ipaddress.IPv4Network("162.158.0.0/15", strict=False),
+    # ipaddress.IPv4Network("104.16.0.0/130", strict=False),
+    # ipaddress.IPv4Network("104.24.0.0/14", strict=False),
+    # ipaddress.IPv4Network("172.64.0.0/13", strict=False),
+    # ipaddress.IPv4Network("131.0.72.0/22", strict=False),
+
+
+
 ]
 response_data = {}
 for ipv4_network in networks:
